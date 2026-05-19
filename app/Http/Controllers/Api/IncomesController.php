@@ -15,10 +15,7 @@ final readonly class IncomesController
     {
         return IncomeResource::collection(
             Income::query()
-                ->whereDate('date', '>=', $request->validated('dateFrom'))
-                ->whereDate('date', '<=', $request->validated('dateTo'))
-                ->oldest('date')
-                ->oldest('id')
+                ->filters($request->validated('dateFrom'), $request->validated('dateTo'))
                 ->paginate($request->limit())
         )->preserveQuery();
     }
